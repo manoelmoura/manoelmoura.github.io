@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manoel Moura - Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .main-carousel {
+            border: 0 20px;
+        }
+        .carousel-cell.is-selected {
+            background: #00ff87;
+        }
+        .carousel-cell {
+            width: 50%;
+        }
+        @keyframes blink {
+            0% {
+                visibility: hidden;
+            }
+            50% {
+                visibility: hidden;
+            }
+            100% {
+                visibility: visible;
+            }
+        }
+        .animate-blink {
+            animation: blink 1s infinite;
+        }
+
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+</head>
+<body class="bg-[#0d0d0d] text-white font-libre">
+    <header class="fixed w-full z-50">
+        <nav id="navbar" class="flex bg-[#0d0d0ddd] justify-center">
+            <div class="flex items-center justify-between w-[1200px] h-[60px] pp-3">
+                <a class="text-3xl" href="#">Manoel Moura</a>
+                <ul class="flex text-xl space-x-6">
+                    <li class="hover:text-[#00FF87]"><button onclick="scrollToHome()">Projetos</button></li>
+                    <li class="hover:text-[#00FF87]"><button onclick="scrollToSobremim()">Sobre mim</button></li>
+                    <li class="hover:text-[#00FF87]"><button onclick="scrollToHome()"></button></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <canvas class="w-full absolute z-[-1] h-[200vh]" id="canvas"></canvas>
+    <div class="w-full h-[60px] bg-[#00000000]" id="home"></div>
+    <div class="flex justify-center overflow-hidden h-[500px]">
+        <div class="flex justify-between w-[1200px] beg-[#00ff0044] pl-8">
+            <div class="h-full bg-[#0d0d0d00] relative w-[510px]">
+                <div class="h-[100px] flex items-center justify-center absolute bottom-0 right-0 transform translate-x-1/2">
+                    <svg width="400" height="250">
+                        <circle cx="200" cy="250" r="200" fill="#0a0a0a" />
+                    </svg>
+                    <h1 class="text-3xl text-white bottom-0 p-2 absolute">Meus <span class="text-[#00FF87]">Projetos</span></h1>
+                </div>
+                
+                
+                
+            </div>
+            
+            <div class="z-[-1] relative w-full flex">
+                <img class="grayscale h-[800px] md:h-[1200px] w-full" src="portfoil_img/manoel.jpg" alt="foto do manoel">
+
+            </div>
+
+            <div class="absolute pt-[100px] pl-[100px]">
+                    <h1 class="text-7xl ">Manoel Moura</h1>
+                    <h2 class="text-3xl text-[#00ff87]">Front-end Developer<span class="animate-blink">|</span></h2>
+                    <br>
+                    <h3 class="text-xl">Engenharia de software</h3>
+                    <br>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/manoelmoura">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 0C8.955 0 0 8.955 0 20C0 29.3717 6.45333 37.2133 15.1533 39.3833C15.06 39.1133 15 38.8 15 38.4117V34.9933C14.1883 34.9933 12.8283 34.9933 12.4867 34.9933C11.1183 34.9933 9.90167 34.405 9.31167 33.3117C8.65667 32.0967 8.54333 30.2383 6.92 29.1017C6.43833 28.7233 6.805 28.2917 7.36 28.35C8.385 28.64 9.235 29.3433 10.035 30.3867C10.8317 31.4317 11.2067 31.6683 12.695 31.6683C13.4167 31.6683 14.4967 31.6267 15.5133 31.4667C16.06 30.0783 17.005 28.8 18.16 28.1967C11.5 27.5117 8.32167 24.1983 8.32167 19.7C8.32167 17.7633 9.14667 15.89 10.5483 14.3117C10.0883 12.745 9.51 9.55 10.725 8.33333C13.7217 8.33333 15.5333 10.2767 15.9683 10.8017C17.4617 10.29 19.1017 10 20.825 10C22.5517 10 24.1983 10.29 25.695 10.805C26.125 10.2833 27.9383 8.33333 30.9417 8.33333C32.1617 9.55167 31.5767 12.76 31.1117 14.3233C32.505 15.8983 33.325 17.7667 33.325 19.7C33.325 24.195 30.1517 27.5067 23.5017 28.195C25.3317 29.15 26.6667 31.8333 26.6667 33.855V38.4117C26.6667 38.585 26.6283 38.71 26.6083 38.8583C34.4017 36.1267 40 28.7267 40 20C40 8.955 31.045 0 20 0Z" fill="white"/>
+                            </svg>
+                        </a>
+                        <a href="https://wa.link/ciwnce">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 0C8.955 0 0 8.955 0 20C0 23.752 1.0539 27.2501 2.85156 30.2507L0.179036 40L10.1367 37.3861C13.0489 39.0418 16.4108 40 20 40C31.045 40 40 31.045 40 20C40 8.955 31.045 0 20 0ZM13.1543 10.6706C13.4793 10.6706 13.8132 10.6686 14.1016 10.6836C14.4582 10.6919 14.8464 10.718 15.2181 11.5397C15.6598 12.5164 16.6215 14.9665 16.7448 15.2148C16.8681 15.4632 16.9555 15.7557 16.7839 16.0807C16.6205 16.4141 16.5356 16.6158 16.2956 16.9108C16.0472 17.1975 15.7751 17.5535 15.5501 17.7702C15.3018 18.0185 15.0454 18.2908 15.332 18.7858C15.6187 19.2808 16.6143 20.9035 18.0859 22.2135C19.9776 23.9035 21.5736 24.4229 22.0703 24.6712C22.567 24.9196 22.8546 24.8809 23.1413 24.5475C23.4363 24.2225 24.3802 23.1073 24.7135 22.6107C25.0385 22.114 25.3703 22.1999 25.8203 22.3633C26.277 22.5266 28.7123 23.7263 29.209 23.9746C29.7057 24.2229 30.0312 24.3459 30.1562 24.5475C30.2846 24.7559 30.2847 25.7476 29.873 26.9043C29.4614 28.0593 27.4399 29.1762 26.5332 29.2546C25.6182 29.3396 24.7643 29.6658 20.5859 28.0208C15.5459 26.0358 12.3675 20.8737 12.1191 20.5404C11.8708 20.2154 10.1009 17.8565 10.1009 15.4232C10.1009 12.9815 11.3811 11.7857 11.8294 11.2891C12.2861 10.7924 12.821 10.6706 13.1543 10.6706Z" fill="#00FF87"/>
+                            </svg>
+                        </a>
+                        
+                        
+                                
+                    </div>
+                    
+                </div>
+                
+            
+            
+        </div>
+        
+    </div>
+    <section class="bg-[#0a0a0a] h-[350px] flex justify-center">
+        <div class="flex justify-between w-[1250px] btg-red-500">
+            <div class="main-carousel w-full h-auto m-6 btg-green-500">
+                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
+                    <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
+                </div>
+                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
+                    <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
+                </div>
+                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
+                    <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
+                </div>
+                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
+                    <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
+                </div>
+                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
+                    <img class="grayscale #hover:grayscale-0 rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    <section class="h-[100vh] flex justify-center" id="sobremim">
+        <div class="w-[1200px] h-[500px]">
+            <div class="flex justify-center items-center">
+                <div class="h-[150px] flex justify-center items-center">
+                    <svg width="400" height="150">
+                        <circle cx="200" cy="-50" r="200" fill="#0a0a0a" />
+                    </svg>
+                    <h1 class="text-3xl absolute">Sobre <span class="text-[#00FF87]">mim</span></h1>
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="w-[600px] h-[400px]">
+                    <h1 class="text-3xl">Oi! Sou o Manoel</h1>
+                    <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
+                    <p>
+                        Estudo Engenharia de Software na Universidade de Brasília (UnB). Tenho um grande interesse em desenvolvimento front-end e estou constantemente aprimorando minhas habilidades em HTML, CSS, JavaScript e frameworks modernos. Meu objetivo é criar interfaces lindas, sempre buscando aprender e evoluir na área de tecnologia.
+                    </p>
+                </div>
+                
+            </div>
+
+        
+        </div>
+    </section>
+
+    <script>
+        var elem = document.querySelector('.main-carousel');
+        var flkty = new Flickity( elem, {
+        // options
+        cellAlign: 'left',
+        contain: false,
+        freeScroll: false,
+        prevNextButtons: true,
+        pageDots: false,
+        wrapAround: true,
+        autoPlay: 2000,
+        
+        });
+
+        flkty.on('staticClick', function(event, pointer, cellElement, cellIndex) {
+            if (!cellElement) {
+                return; // Evita erro se clicar fora de um item
+            }
+
+            flkty.select(cellIndex); // Faz com que o item seja selecionado
+            });
+
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            libre: ["Libre Caslon Text", "serif"]
+                        }
+                    }
+                }
+            }
+            
+        function scrollToHome() {
+            const target = document.getElementById('home');
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+        function scrollToSobremim() {
+            const target = document.getElementById('sobremim');
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        function scrollTo() {
+            const target = document.getElementById('home');
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        
+    </script>
+    <script>
+        var canvas = document.getElementById("canvas"),
+        ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight * 2;
+
+        var stars = [], // Array that contains the stars
+            FPS = 60, // Frames per second
+            x = canvas.width; // Number of stars
+
+        // Push stars to array
+
+        for (var i = 0; i < x; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random(),
+            vx: Math.floor(Math.random() * 10) - 5,
+            vy: Math.floor(Math.random() * 10) - 5
+        });
+        }
+
+        // Draw the scene
+
+        function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        
+        ctx.globalCompositeOperation = "lighter";
+        
+        for (var i = 0, x = stars.length; i < x; i++) {
+            var s = stars[i];
+        
+            ctx.fillStyle = "#fff";
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+        }
+
+        // Update star locations
+
+        function update() {
+        for (var i = 0, x = stars.length; i < x; i++) {
+            var s = stars[i];
+        
+            s.x += s.vx / FPS;
+            s.y += s.vy / FPS;
+            
+            if (s.x < 0 || s.x > canvas.width) s.x = -s.x;
+            if (s.y < 0 || s.y > canvas.height) s.y = -s.y;
+        }
+        }
+
+        // Update and draw
+
+        function tick() {
+        draw();
+        update();
+        requestAnimationFrame(tick);
+        }
+
+        tick();
+
+    </script>
+</body>
+</html>
