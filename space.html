@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Jogo com Phaser</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.js"></script>
+    <style>
+        body {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="5" cy="5" r="5" fill="red"/></svg>') 5 5, auto;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center h-screen bg-[#444444]">
+    <div id="game-container"></div>
+    <script>
+        const config = {
+            type: Phaser.AUTO,
+            width: window.innerWidth,
+            height: window.innerHeight,
+            parent: 'game-container',
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: 0 },
+                    debug: false
+                }
+            },
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            },
+            render: {
+                antialias: true
+            }
+        };
+
+        const game = new Phaser.Game(config);
+        let player;
+        let arrow;
+        const ACCELERATION = 200; // Intensidade do impulso
+        let velocitytext;
+        let playerposition;
+        let fuel = 5000;
+        const GRAVITY_CONSTANT = 500;
+
+        function preload() {
+            // Criar um triângulo representando a nave
+            const graphics = this.add.graphics();
+            graphics.fillStyle(0xffffff, 1);
+            graphics.fillTriangle(10, 0, 40, 20, 10, 40);
+            graphics.fillStyle(0xaaaaaa, 1);
+            graphics.fillTriangle(0, 10, 40, 20, 0, 30);
+            graphics.generateTexture('playerTexture', 40, 40);
+            graphics.destroy();
+
+            // Criar textura do planeta terra
+            const circle = this.add.graphics();
+            circle.fillStyle(0x0000dd, 1);
+            circle.fillCircle(200, 200, 200);
+            circle.generateTexture('terraTexture', 400, 400);
+            circle.destroy();
+
+            // criar textura da lua
+            const circle2 = this.add.graphics();
+            circle2.fillStyle(0xaaaaaa, 1);
+            circle2.fillCircle(50, 50, 50);
+            circle2.generateTexture('luaTexture', 100, 100);
+            circle2.destroy();
+
+            // criar textura de tiro
+            const bulletTexture = this.add.graphics();
+            bulletTexture.fillStyle(0x00ff00, 1);
+            bulletTexture.fillRect(-400, 0, 40, 6);
+            bulletTexture.fillStyle(0xffffff, 1);
+            bulletTexture.fillRect(-398, 2, 35, 2);
+            bulletTexture.generateTexture('bulletTexture', 100, 100);
+            bulletTexture.destroy();
+            
+            
+        }
+
+        function create() {
+            
+            
+
+            // Criar o player usando a textura da nave
+            player = this.physics.add.sprite(0, 0, 'playerTexture');
+            player.setCircle(15); // Define o círculo de colisão da nave
+            player.setCollideWorldBounds(false); // No espaço, a nave pode sair da tela
+            player.setDrag(0); // Sem desaceleração automática
+            player.setMaxVelocity(400);
+            player.setOrigin(0.5, 0.5); // Define o ponto de origem da nave no centro
+
+            //movimentação
+            arrow = this.input.keyboard.addKeys({
+                left: Phaser.Input.Keyboard.KeyCodes.A,
+                right: Phaser.Input.Keyboard.KeyCodes.D,
+                up: Phaser.Input.Keyboard.KeyCodes.W,
+                down: Phaser.Input.Keyboard.KeyCodes.S
+            });
+
+
+            //camera
+            this.cameras.main.startFollow(player);
+            this.cameras.main.setFollowOffset(0, 0); // Define o offset da câmera em relação ao jogador
+            this.cameras.main.setLerp(0.5); // Define a suavização do movimento da câmera
+            this.cameras.main.setZoom(1); // Define o zoom da câmera
+
+            //hud
+            velocityText = this.add.text(window.innerWidth/2 - 40, window.innerHeight - 40, '0 km/h', {
+                font: '24px Arial',
+                fill: '#fff'
+            });
+            playerposition = this.add.text(10, 10, 'X:0 Y:0', {
+                font: '24px Arial',
+                fill: '#fff'
+            });
+            const fuelbarBackground = this.add.graphics();
+            fuelbarBackground.fillStyle(0x333333, 1);
+            fuelbarBackground.fillRect(window.innerWidth / 2 - 250, window.innerHeight - 60, 500, 10); // Fundo da barra
+            fuelbarBackground.setScrollFactor(0); // Manter fixo na tela
+            fuelbarBackground.setDepth(40); // Certificar que fique atrás da barra
+
+            fuelbar = this.add.graphics();
+            fuelbar.fillStyle(0x00ff00, 1); // Cor verde para o combustível
+            fuelbar.fillRect(window.innerWidth / 2 - 250, window.innerHeight - 60, 500, 10); // Barra cheia
+            fuelbar.setScrollFactor(0); // Manter fixo na tela
+            fuelbar.setDepth(40); // Garantir que a barra de combustível fique à frente
+
+            velocityText.setScrollFactor(0);
+            playerposition.setScrollFactor(0);
+            fuelbar.setScrollFactor(0);
+            
+            player.setDepth(1);
+            velocityText.setDepth(40);
+            playerposition.setDepth(40);
+            fuelbar.setDepth(40);
+
+            
+
+            
+            //criar estrelas dentro do campo de visão
+            for (let i = 0; i < 1800; i++) {
+                const x = Phaser.Math.Between(-innerWidth*2, innerWidth*2);
+                const y = Phaser.Math.Between(-innerHeight*2, innerHeight *2);
+                const size = Phaser.Math.Between(1, 2);
+                this.add.graphics().fillStyle(0xffffff, 1).fillRect(x, y, size, size).setScrollFactor(0.01);
+
+            }
+
+            
+
+            //terra
+            
+            terra = this.physics.add.sprite(0, 0, 'terraTexture');
+            terra.setImmovable(true); // O planeta não se move
+            terra.setCircle(200); // Define o círculo de colisão do planeta
+            this.physics.add.collider(player, terra);
+
+            //lua
+            lua = this.physics.add.sprite(terra.x + 600, terra.y, 'luaTexture');
+            lua.setCircle(50); // Define o círculo de colisão da Lua
+            this.physics.add.collider(player, lua);
+
+            luaOrbit = 800; // Raio da órbita
+            luaAngle = 0; // Ângulo inicial para a órbita
+            luaSpeed = 0.0002; // Velocidade da órbita da Lua
+
+            //tiro
+        
+            
+            
+            
+
+
+
+            
+
+
+        }
+
+        function update() {
+
+            
+            
+
+            // Mouse
+            const aimAngle = Phaser.Math.Angle.Between(window.innerWidth/2, window.innerHeight/2, this.input.activePointer.x, this.input.activePointer.y);
+            player.rotation = aimAngle; // Aplica a rotação da nave
+
+
+
+            // Movimentação
+            if (arrow.left.isDown && fuel > 0) {
+                player.setAccelerationX(-ACCELERATION);
+                fuel -= 1;
+            } else if (arrow.right.isDown && fuel > 0) {
+                player.setAccelerationX(ACCELERATION);
+                fuel -= 1;
+            } else {
+                player.setAccelerationX(0);
+            }
+
+            if (arrow.up.isDown && fuel > 0) {
+                player.setAccelerationY(-ACCELERATION);
+                fuel -= 1;
+            } else if (arrow.down.isDown && fuel > 0) {
+                player.setAccelerationY(ACCELERATION);
+                fuel -= 1;
+            } else {
+                player.setAccelerationY(0);
+            }
+
+            //HUD
+            const velocity = player.body.velocity;// Calcular a velocidade total da nave (em relação ao eixo X e Y)
+            const speed = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+
+            velocityText.setText(Math.round(speed) + ' km/h'); // Atualiza o texto com a velocidade atual
+            playerposition.setText('X:' + Math.round(player.x) + '\nY:' + Math.round(player.y));
+
+            fuelbar.clear(); // Limpa a barra anterior
+            fuelbar.fillStyle(0x00ff00, 1); // Cor verde para o combustível
+            fuelbar.fillRect(window.innerWidth / 2 - 250, window.innerHeight - 60, 500 * (fuel / 5000), 10); // Atualiza com base no combustível restante
+
+            
+            
+            //gravidade terra
+            const distanceTerra = Phaser.Math.Distance.Between(player.x, player.y, terra.x, terra.y);
+            const gravityForceterra = GRAVITY_CONSTANT * 100/ (distanceTerra * distanceTerra);
+
+            // Verifica se o jogador está muito perto do planeta (evitar divisão por zero)
+            if (distanceTerra > 0) {
+                const terraAngle = Phaser.Math.Angle.Between(player.x, player.y, terra.x, terra.y);
+
+                // Aplica a gravidade
+                player.body.velocity.x += Math.cos(terraAngle) * gravityForceterra;
+                player.body.velocity.y += Math.sin(terraAngle) * gravityForceterra;
+            }
+
+            //gravidade lua
+            const distanceLua = Phaser.Math.Distance.Between(player.x, player.y, lua.x, lua.y);
+            const gravityForceLua = GRAVITY_CONSTANT * 1 / (distanceLua * distanceLua);
+
+            // Verifica se o jogador está muito perto do planeta (evitar divisão por zero)
+            if (distanceLua > 0) {
+                const luaAngle = Phaser.Math.Angle.Between(player.x, player.y, lua.x, lua.y);
+
+                // Aplica a gravidade
+                player.body.velocity.x += Math.cos(luaAngle) * gravityForceLua;
+                player.body.velocity.y += Math.sin(luaAngle) * gravityForceLua;
+            }
+            
+            luaAngle += luaSpeed; // Incrementa o ângulo da Lua
+            const luaX = terra.x + luaOrbit * Math.cos(luaAngle); // Calcula a posição X da Lua
+            const luaY = terra.y + luaOrbit * Math.sin(luaAngle); // Calcula a posição Y da Lua
+
+            lua.setPosition(luaX, luaY); // Define a posição da Lua
+            lua.rotation += 0.01;
+
+        }
+    </script>
+</body>
+</html>
