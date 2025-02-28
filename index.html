@@ -41,11 +41,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
 </head>
-<body class="bg-[#0d0d0d] text-white font-libre">
+<body class="bg-[#0d0d0d] text-white font-libre w-full">
     <header class="fixed w-full z-50">
         <nav id="navbar" class="flex bg-[#0d0d0ddd] justify-center">
-            <div class="flex items-center justify-between w-[1200px] h-[60px] pp-3">
-                <a class="text-3xl" href="#">Manoel Moura</a>
+            <div class="flex items-center justify-between w-[1200px] h-[60px] sm:pt-[unset] pt-6">
+                <a class="text-3xl hover:text-[#00FF87] pl-4" href="#">Manoel Moura</a>
                 <ul class="flex text-xl space-x-6">
                     <li class="hover:text-[#00FF87]"><button onclick="scrollToHome()">Projetos</button></li>
                     <li class="hover:text-[#00FF87]"><button onclick="scrollToSobremim()">Sobre mim</button></li>
@@ -55,11 +55,11 @@
         </nav>
     </header>
     
-    <canvas class="w-full absolute z-[-1] h-[200vh]" id="canvas"></canvas>
+    <canvas class="w-auto absolute z-[-1] h-[200vh]" id="canvas"></canvas>
     <div class="w-full h-[60px] bg-[#00000000]" id="home"></div>
-    <div class="flex justify-center overflow-hidden h-[500px]">
-        <div class="flex justify-between w-[1200px] beg-[#00ff0044] pl-8">
-            <div class="h-full bg-[#0d0d0d00] relative w-[510px]">
+    <div class="flex justify-center overflow-hidden lg:h-auto h-[400px] w-full">
+        <div class="sm:flex justify-between #w-[1200px] beg-[#00ff0044] pl-8">
+            <div class="h-full bg-[#0dff0d00] w-[20vw] relative lg:w-[510px]">
                 <div class="h-[100px] flex items-center justify-center absolute bottom-0 right-0 transform translate-x-1/2">
                     <svg width="400" height="250">
                         <circle cx="200" cy="250" r="200" fill="#0a0a0a" />
@@ -71,12 +71,12 @@
                 
             </div>
             
-            <div class="z-[-1] relative w-full flex">
-                <img class="grayscale h-[800px] md:h-[1200px] w-full" src="portfoil_img/manoel.jpg" alt="foto do manoel">
+            <div class="z-[-1] relative lg:w-full flex">
+                <img class="grayscale h-auto w-full pr-6" src="portfoil_img/manoelw.jpg" alt="foto do manoel">
 
             </div>
 
-            <div class="absolute pt-[100px] pl-[100px]">
+            <div class="absolute sm:pt-[100px] pt-[100px] sm:top-[unset] top-0 lg:pl-[90px] pl-6">
                     <h1 class="text-7xl ">Manoel Moura</h1>
                     <h2 class="text-3xl text-[#00ff87]">Front-end Developer<span class="animate-blink">|</span></h2>
                     <br>
@@ -98,7 +98,7 @@
                                 
                     </div>
                     
-                </div>
+            </div>
                 
             
             
@@ -109,7 +109,15 @@
         <div class="flex justify-between w-[1250px] btg-red-500">
             <div class="main-carousel w-full h-auto m-6 btg-green-500">
                 <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
-                    <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
+                    <img class="w-[98%] h-[300px] rounded-3xl" src="portfoil_img/spacem.png" alt="">
+                    <div class="flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 absolute w-[100%] h-[100%]">
+                        <div class="w-[300px] h-auto bg-[#000000dd] p-4 rounded-3xl">
+                            <h1>MoonLanding</h1>
+                            <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
+                            <p>Pequeno jogo espacial em JavaScript utilizando a biblioteca Phaser.js</p>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
                     <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
@@ -122,7 +130,9 @@
                 </div>
                 <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
                     <img class="grayscale #hover:grayscale-0 rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
+                    
                 </div>
+                
             </div>
         </div>
         
@@ -138,8 +148,29 @@
                 </div>
             </div>
 
-            <div class="flex">
-                <div class="w-[600px] h-[400px]">
+            <div class="grid grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 pl-4">
+                <div class="p-4 h-[400px]">
+                    <h1 class="text-3xl">Oi! Sou o Manoel</h1>
+                    <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
+                    <p>
+                        Estudo Engenharia de Software na Universidade de Brasília (UnB). Tenho um grande interesse em desenvolvimento front-end e estou constantemente aprimorando minhas habilidades em HTML, CSS, JavaScript e frameworks modernos. Meu objetivo é criar interfaces lindas, sempre buscando aprender e evoluir na área de tecnologia.
+                    </p>
+                </div>
+                <div class="p-4 h-[400px]">
+                    <h1 class="text-3xl">Oi! Sou o Manoel</h1>
+                    <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
+                    <p>
+                        Estudo Engenharia de Software na Universidade de Brasília (UnB). Tenho um grande interesse em desenvolvimento front-end e estou constantemente aprimorando minhas habilidades em HTML, CSS, JavaScript e frameworks modernos. Meu objetivo é criar interfaces lindas, sempre buscando aprender e evoluir na área de tecnologia.
+                    </p>
+                </div>
+                <div class="p-4 h-[400px]">
+                    <h1 class="text-3xl">Oi! Sou o Manoel</h1>
+                    <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
+                    <p>
+                        Estudo Engenharia de Software na Universidade de Brasília (UnB). Tenho um grande interesse em desenvolvimento front-end e estou constantemente aprimorando minhas habilidades em HTML, CSS, JavaScript e frameworks modernos. Meu objetivo é criar interfaces lindas, sempre buscando aprender e evoluir na área de tecnologia.
+                    </p>
+                </div>
+                <div class="p-4 h-[400px]">
                     <h1 class="text-3xl">Oi! Sou o Manoel</h1>
                     <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
                     <p>
@@ -152,6 +183,7 @@
         
         </div>
     </section>
+    
 
     <script>
         var elem = document.querySelector('.main-carousel');
@@ -208,7 +240,7 @@
         canvas.height = window.innerHeight * 2;
 
         var stars = [], // Array that contains the stars
-            FPS = 60, // Frames per second
+            FPS = 100, // Frames per second
             x = canvas.width; // Number of stars
 
         // Push stars to array
