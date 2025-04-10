@@ -1,301 +1,203 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manoel Moura - Portfolio</title>
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        .main-carousel {
-            border: 0 20px;
-        }
-        .carousel-cell.is-selected {
-            background: #00ff87;
-        }
-        .carousel-cell {
-            width: 50%;
-        }
-        @keyframes blink {
-            0% {
-                visibility: hidden;
-            }
-            50% {
-                visibility: hidden;
-            }
-            100% {
-                visibility: visible;
-            }
-        }
-        .animate-blink {
-            animation: blink 1s infinite;
-        }
-
-    </style>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phaser Vazio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.js"></script>
 </head>
-<body class="bg-[#0d0d0d] text-white font-libre w-full overflow-x-hidden">
-    <header class="fixed w-full z-50">
-        <nav id="navbar" class="flex bg-[#0d0d0ddd] justify-center">
-            <div class="flex items-center justify-between w-[1200px] h-[60px] sm:pt-[unset] pt-6">
-                <a class="text-3xl hover:text-[#00FF87] pl-4" href="#">Manoel Moura</a>
-                <ul class="flex text-xl space-x-6">
-                    <li class="hover:text-[#00FF87]"><button onclick="scrollToHome()">Projetos</button></li>
-                    <li class="hover:text-[#00FF87]"><button onclick="scrollToSobremim()">Sobre mim</button></li>
-                    <li class="hover:text-[#00FF87]"><button onclick="scrollToHome()"></button></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    
-    <canvas class="w-auto absolute z-[-1] h-[200vh]" id="canvas"></canvas>
-    <div class="w-full h-[60px] bg-[#00000000]" id="home"></div>
-    <div class="flex justify-center overflow-hidden lg:h-auto h-[400px] w-full">
-        <div class="sm:flex justify-between #w-[1200px] beg-[#00ff0044] pl-8">
-            <div class="h-full bg-[#0dff0d00] w-[20vw] relative lg:w-[510px]">
-                <div class="h-[100px] flex items-center justify-center absolute bottom-0 right-0 transform translate-x-1/2">
-                    <svg width="400" height="250">
-                        <circle cx="200" cy="250" r="200" fill="#0a0a0a" />
-                    </svg>
-                    <h1 class="text-3xl text-white bottom-0 p-2 absolute">Meus <span class="text-[#00FF87]">Projetos</span></h1>
-                </div>
-                
-                
-                
-            </div>
-            
-            <div class="z-[-1] relative lg:w-full flex">
-                <img class="grayscale h-auto w-full pr-6" src="portfoil_img/manoelw.jpg" alt="foto do manoel">
+<body class="m-0 p-0 overflow-hidden">
+  <div id="game-container"></div>
+  <script>
+    const config = {
+      type: Phaser.AUTO,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      parent: 'game-container',
+      backgroundColor: '#000000',
+      scene: {
+        preload: preload,
+        create: create,
+        update: update
+      }
+    };
 
-            </div>
+    const game = new Phaser.Game(config);
 
-            <div class="absolute sm:pt-[100px] pt-[100px] sm:top-[unset] top-0 lg:pl-[90px] pl-6">
-                    <h1 class="text-7xl ">Manoel Moura</h1>
-                    <h2 class="text-3xl text-[#00ff87]">Front-end Developer<span class="animate-blink">|</span></h2>
-                    <br>
-                    <h3 class="text-xl">Engenharia de software</h3>
-                    <br>
-                    <div class="flex space-x-4">
-                        <a href="https://github.com/manoelmoura">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 0C8.955 0 0 8.955 0 20C0 29.3717 6.45333 37.2133 15.1533 39.3833C15.06 39.1133 15 38.8 15 38.4117V34.9933C14.1883 34.9933 12.8283 34.9933 12.4867 34.9933C11.1183 34.9933 9.90167 34.405 9.31167 33.3117C8.65667 32.0967 8.54333 30.2383 6.92 29.1017C6.43833 28.7233 6.805 28.2917 7.36 28.35C8.385 28.64 9.235 29.3433 10.035 30.3867C10.8317 31.4317 11.2067 31.6683 12.695 31.6683C13.4167 31.6683 14.4967 31.6267 15.5133 31.4667C16.06 30.0783 17.005 28.8 18.16 28.1967C11.5 27.5117 8.32167 24.1983 8.32167 19.7C8.32167 17.7633 9.14667 15.89 10.5483 14.3117C10.0883 12.745 9.51 9.55 10.725 8.33333C13.7217 8.33333 15.5333 10.2767 15.9683 10.8017C17.4617 10.29 19.1017 10 20.825 10C22.5517 10 24.1983 10.29 25.695 10.805C26.125 10.2833 27.9383 8.33333 30.9417 8.33333C32.1617 9.55167 31.5767 12.76 31.1117 14.3233C32.505 15.8983 33.325 17.7667 33.325 19.7C33.325 24.195 30.1517 27.5067 23.5017 28.195C25.3317 29.15 26.6667 31.8333 26.6667 33.855V38.4117C26.6667 38.585 26.6283 38.71 26.6083 38.8583C34.4017 36.1267 40 28.7267 40 20C40 8.955 31.045 0 20 0Z" fill="white"/>
-                            </svg>
-                        </a>
-                        <a href="https://wa.link/ciwnce">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 0C8.955 0 0 8.955 0 20C0 23.752 1.0539 27.2501 2.85156 30.2507L0.179036 40L10.1367 37.3861C13.0489 39.0418 16.4108 40 20 40C31.045 40 40 31.045 40 20C40 8.955 31.045 0 20 0ZM13.1543 10.6706C13.4793 10.6706 13.8132 10.6686 14.1016 10.6836C14.4582 10.6919 14.8464 10.718 15.2181 11.5397C15.6598 12.5164 16.6215 14.9665 16.7448 15.2148C16.8681 15.4632 16.9555 15.7557 16.7839 16.0807C16.6205 16.4141 16.5356 16.6158 16.2956 16.9108C16.0472 17.1975 15.7751 17.5535 15.5501 17.7702C15.3018 18.0185 15.0454 18.2908 15.332 18.7858C15.6187 19.2808 16.6143 20.9035 18.0859 22.2135C19.9776 23.9035 21.5736 24.4229 22.0703 24.6712C22.567 24.9196 22.8546 24.8809 23.1413 24.5475C23.4363 24.2225 24.3802 23.1073 24.7135 22.6107C25.0385 22.114 25.3703 22.1999 25.8203 22.3633C26.277 22.5266 28.7123 23.7263 29.209 23.9746C29.7057 24.2229 30.0312 24.3459 30.1562 24.5475C30.2846 24.7559 30.2847 25.7476 29.873 26.9043C29.4614 28.0593 27.4399 29.1762 26.5332 29.2546C25.6182 29.3396 24.7643 29.6658 20.5859 28.0208C15.5459 26.0358 12.3675 20.8737 12.1191 20.5404C11.8708 20.2154 10.1009 17.8565 10.1009 15.4232C10.1009 12.9815 11.3811 11.7857 11.8294 11.2891C12.2861 10.7924 12.821 10.6706 13.1543 10.6706Z" fill="#00FF87"/>
-                            </svg>
-                        </a>
-                        
-                        
-                                
-                    </div>
-                    
-            </div>
-                
-            
-            
-        </div>
-        
-    </div>
-    <section class="bg-[#0a0a0a] h-[350px] flex justify-center">
-        <div class="flex justify-between w-[1250px] btg-red-500">
-            <div class="main-carousel w-full h-auto m-6 btg-green-500">
-                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
-                    <img class="w-[98%] h-[300px] rounded-3xl" src="portfoil_img/spacem.png" alt="">
-                    <div class="flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 absolute w-[100%] h-[100%]">
-                        <div class="w-[300px] h-auto bg-[#000000dd] p-4 rounded-3xl">
-                            <h1>MoonLanding</h1>
-                            <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
-                            <p>Pequeno jogo espacial em JavaScript utilizando a biblioteca Phaser.js</p>
-                        </div>
+    function criarAstro(scene, x, y, tamanho = 50, corHex = 0xffffff, orbita = null, zoom = 3, trilha = 0.5) {
+        const astro = scene.add.circle(x, y, tamanho, corHex);
+        astro.setInteractive();
 
-                    </div>
-                </div>
-                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
-                    <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
-                </div>
-                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
-                    <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
-                </div>
-                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
-                    <img class="grayscale rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
-                </div>
-                <div class="bg-[#0d0d0d] mr-4 carousel-cell flex justify-center w-[400px] h-[300px] rounded-3xl">
-                    <img class="grayscale #hover:grayscale-0 rounded-3xl w-[98%]" src="portfoil_img/manoel1.jpg" alt="">
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-    </section>
-    <section class="h-[100vh] flex justify-center" id="sobremim">
-        <div class="w-[1200px] h-[500px]">
-            <div class="flex justify-center items-center">
-                <div class="h-[150px] flex justify-center items-center">
-                    <svg width="400" height="150">
-                        <circle cx="200" cy="-50" r="200" fill="#0a0a0a" />
-                    </svg>
-                    <h1 class="text-3xl absolute">Sobre <span class="text-[#00FF87]">mim</span></h1>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 pl-4">
-                <div class="p-4 h-[400px]">
-                    <h1 class="text-3xl">Oi! Sou o Manoel</h1>
-                    <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
-                    <p>
-                        Estudo Engenharia de Software na Universidade de Brasília (UnB). Tenho um grande interesse em desenvolvimento front-end e estou constantemente aprimorando minhas habilidades em HTML, CSS, JavaScript e frameworks modernos. Meu objetivo é criar interfaces lindas, sempre buscando aprender e evoluir na área de tecnologia.
-                    </p>
-                </div>
-                <div class="p-4 h-[400px]">
-                    <h1 class="text-3xl">Oi! Sou o Manoel</h1>
-                    <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
-                    <p>
-                        Estudo Engenharia de Software na Universidade de Brasília (UnB). Tenho um grande interesse em desenvolvimento front-end e estou constantemente aprimorando minhas habilidades em HTML, CSS, JavaScript e frameworks modernos. Meu objetivo é criar interfaces lindas, sempre buscando aprender e evoluir na área de tecnologia.
-                    </p>
-                </div>
-                <div class="p-4 h-[400px]">
-                    <h1 class="text-3xl">Oi! Sou o Manoel</h1>
-                    <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
-                    <p>
-                        Estudo Engenharia de Software na Universidade de Brasília (UnB). Tenho um grande interesse em desenvolvimento front-end e estou constantemente aprimorando minhas habilidades em HTML, CSS, JavaScript e frameworks modernos. Meu objetivo é criar interfaces lindas, sempre buscando aprender e evoluir na área de tecnologia.
-                    </p>
-                </div>
-                <div class="p-4 h-[400px]">
-                    <h1 class="text-3xl">Oi! Sou o Manoel</h1>
-                    <hr class="w-[100px] border-[#00FF87] h-[4px] b-0">
-                    <p>
-                        Estudo Engenharia de Software na Universidade de Brasília (UnB). Tenho um grande interesse em desenvolvimento front-end e estou constantemente aprimorando minhas habilidades em HTML, CSS, JavaScript e frameworks modernos. Meu objetivo é criar interfaces lindas, sempre buscando aprender e evoluir na área de tecnologia.
-                    </p>
-                </div>
-                
-            </div>
-
-        
-        </div>
-    </section>
-    
-
-    <script>
-        var elem = document.querySelector('.main-carousel');
-        var flkty = new Flickity( elem, {
-        // options
-        cellAlign: 'left',
-        contain: false,
-        freeScroll: false,
-        prevNextButtons: true,
-        pageDots: false,
-        wrapAround: true,
-        autoPlay: 2000,
-        
+        astro.on('pointerdown', () => {
+            scene.cameras.main.startFollow(astro);
+            scene.cameras.main.zoomTo(zoom, 8000);
         });
+        //movimento de orbita
+        if (orbita) {
+            astro.orbita = {
+            centro: orbita.centro, // em vez de cx e cy separados
+            raio: orbita.raio,
+            angulo: 0,
+            velocidade: orbita.velocidade || 0.01
+            };
 
-        flkty.on('staticClick', function(event, pointer, cellElement, cellIndex) {
-            if (!cellElement) {
-                return; // Evita erro se clicar fora de um item
-            }
-
-            flkty.select(cellIndex); // Faz com que o item seja selecionado
+            scene.events.on('update', () => {
+            astro.orbita.angulo += astro.orbita.velocidade;
+            const cx = astro.orbita.centro.x;
+            const cy = astro.orbita.centro.y;
+            astro.x = cx + Math.cos(astro.orbita.angulo) * astro.orbita.raio;
+            astro.y = cy + Math.sin(astro.orbita.angulo) * astro.orbita.raio;
+            });
+        }
+        //desenho da orbita
+        if (orbita) {
+            const graphics = scene.add.graphics();
+            graphics.setDepth(-1);
+            graphics.lineStyle(1, 0x1c1c1c); // cor e espessura da linha
+            scene.events.on('update', () => {
+                graphics.clear();
+                graphics.setDepth(-1);
+                graphics.lineStyle(trilha, 0x111111);
+                graphics.strokeCircle(orbita.centro.x, orbita.centro.y, orbita.raio);
             });
 
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        fontFamily: {
-                            libre: ["Libre Caslon Text", "serif"]
-                        }
-                    }
-                }
-            }
-            
-        function scrollToHome() {
-            const target = document.getElementById('home');
-            target.scrollIntoView({ behavior: 'smooth' });
         }
-        function scrollToSobremim() {
-            const target = document.getElementById('sobremim');
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        function scrollTo() {
-            const target = document.getElementById('home');
-            target.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        
-    </script>
-    <script>
-        var canvas = document.getElementById("canvas"),
-        ctx = canvas.getContext('2d');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight * 2;
+        return astro;
+    }
 
-        var stars = [], // Array that contains the stars
-            FPS = 100, // Frames per second
-            x = canvas.width; // Number of stars
 
-        // Push stars to array
 
-        for (var i = 0; i < x; i++) {
-        stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random(),
-            vx: Math.floor(Math.random() * 10) - 5,
-            vy: Math.floor(Math.random() * 10) - 5
+    function preload() {
+        const graphics = this.add.graphics({ lineStyle: { width: 5, color: 0xffffff } });
+        graphics.fillStyle(0xffffff, 1);
+        graphics.lineBetween(15, 30, 0, 50);
+        graphics.strokeCircle(25, 18, 15);
+        //graphics.lineBetween(20, 18, 30, 18);
+        graphics.generateTexture('buttonZoomText', 50, 50);
+        graphics.destroy();
+
+        const graphics2 = this.add.graphics({ lineStyle: { width: 10, color: 0xffffff } });
+        graphics2.fillStyle(0xffffff, 1);
+        graphics2.strokeRect(0, 0, 50, 50);
+        graphics2.fillStyle(0x000000, 1);
+        graphics2.fillRect(0, 15, 50, 20);
+        graphics2.fillRect(15, 0, 20, 50);
+        graphics2.generateTexture('fullScreen', 50, 50);
+        graphics2.destroy();
+    }
+
+    function create() {
+
+        //CAMERA
+        const spaceSize = 3000;
+        this.cameras.main.setBounds(-spaceSize/2, -spaceSize/2, spaceSize, spaceSize);
+
+        this.cameras.main.centerOn(0, 0);
+
+        this.input.on('wheel', (pointer, gameObjects, deltaX, deltaY) => {
+        const cam = this.cameras.main;
+        cam.zoom -= deltaY * 0.001;
+        cam.zoom = Phaser.Math.Clamp(cam.zoom, 1, 50); // limita o zoom
         });
-        }
 
-        // Draw the scene
+        this.isDragging = false;
+        this.dragStart = { x: 0, y: 0 };
 
-        function draw() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+        this.input.on('pointerdown', (pointer) => {
+        if (pointer.rightButtonDown()) return; // ignora botão direito
+        this.isDragging = true;
+        this.dragStart.x = pointer.x;
+        this.dragStart.y = pointer.y;
+        });
+
+        this.input.on('pointerup', () => {
+        this.isDragging = false;
+        });
+
+        this.input.on('pointerdown', (pointer, objetos) => {
+            if (objetos.length === 0) {
+                this.cameras.main.stopFollow();
+            }
+            });
+
+        //ESTRELAS
+        for (let i = 0; i < 1800; i++) {
+                const x = Phaser.Math.Between(0, spaceSize);
+                const y = Phaser.Math.Between(0, spaceSize);
+                const size = Phaser.Math.Between(1, 2);
+                this.add.graphics().fillStyle(0xffffff, 1).fillRect(x, y, size, size).setScrollFactor(0.01);
+
+            }
+
+        //ASTROS
+        const astroVel = 0.01;
+        const moonTrace = 0.05
+        const sol = criarAstro(this, 0, 0, 100, 0xffff00);
+        const mercurio = criarAstro(this, 0, 0, 5, 0xffffff, { centro: sol, raio: 120, velocidade: astroVel * 1.61 }, 40);
+        const venus = criarAstro(this, 0, 0, 10, 0xffa500, { centro: sol, raio: 150, velocidade: astroVel * 1.17 }, 30);
+        const terra = criarAstro(this, 0, 0, 10, 0x0000ff, { centro: sol, raio: 200, velocidade: astroVel }, 30);
+            const lua = criarAstro(this, 0, 0, 2, 0xffffff, { centro: terra, raio: 20, velocidade: 0.01 }, 90, moonTrace);
+        const marte = criarAstro(this, 0, 0, 8, 0xff0000, { centro: sol, raio: 250, velocidade: astroVel * 0.81 }, 30);
+            const fobos = criarAstro(this, 0, 0, 2, 0x884444, { centro: marte, raio: 15, velocidade: 0.02 }, 1, moonTrace);
+            const deimos = criarAstro(this, 0, 0, 2, 0xeeeeee, { centro: marte, raio: 20, velocidade: 0.015 }, 1, moonTrace);
+        const jupiter = criarAstro(this, 0, 0, 20, 0xffa500, { centro: sol, raio: 350, velocidade: astroVel * 0.44 }, 20);
+            const io = criarAstro(this, 0, 0, 2, 0xf4c542, { centro: jupiter, raio: 25, velocidade: astroVel * 0.58 }, 1, moonTrace);
+            const europa = criarAstro(this, 0, 0, 2, 0xdbe4ff, { centro: jupiter, raio: 30, velocidade: astroVel * 0.46 }, 1, moonTrace);
+            const ganymedes = criarAstro(this, 0, 0, 2, 0xa9a9a9, { centro: jupiter, raio: 35, velocidade: astroVel * 0.37 }, 1, moonTrace);
+            const calisto = criarAstro(this, 0, 0, 2, 0x5c5c5c, { centro: jupiter, raio: 40, velocidade: astroVel * 0.28 }, 1, moonTrace);
+        const saturno = criarAstro(this, 0, 0, 15, 0xc2b280, { centro: sol, raio: 450, velocidade: astroVel * 0.33 }, 20);
+            const mimas = criarAstro(this, 0, 0, 2, 0xa9a9a9, { centro: saturno, raio: 18, velocidade: astroVel * 0.48 }, 1, moonTrace);
+            const encélado = criarAstro(this, 0, 0, 2, 0xddeeff, { centro: saturno, raio: 20, velocidade: astroVel * 0.42 }, 1, moonTrace);
+            const tétis = criarAstro(this, 0, 0, 2, 0xc0c0c0, { centro: saturno, raio: 22, velocidade: astroVel * 0.38 }, 1, moonTrace);
+            const dione = criarAstro(this, 0, 0, 2, 0xbbbbbb, { centro: saturno, raio: 24, velocidade: astroVel * 0.34 }, 1, moonTrace);
+            const reia = criarAstro(this, 0, 0, 2, 0xcccccc, { centro: saturno, raio: 26, velocidade: astroVel * 0.29 }, 1, moonTrace);
+            const titã = criarAstro(this, 0, 0, 2, 0xd8b365, { centro: saturno, raio: 28, velocidade: astroVel * 0.19 }, 1, moonTrace);
+            const hipérion = criarAstro(this, 0, 0, 2, 0xd2b48c, { centro: saturno, raio: 30, velocidade: astroVel * 0.17 }, 1, moonTrace);
+            const japeto = criarAstro(this, 0, 0, 2, 0x8b7355, { centro: saturno, raio: 32, velocidade: astroVel * 0.11 }, 1, moonTrace);
+        const urano = criarAstro(this, 0, 0, 12, 0x00ffff, { centro: sol, raio: 550, velocidade: astroVel * 0.23 }, 20);
+            const miranda = criarAstro(this, 0, 0, 2, 0xd8d8d8, { centro: urano, raio: 15, velocidade: astroVel * 0.22 }, 1, moonTrace);
+            const ariel = criarAstro(this, 0, 0, 2, 0xdcdcdc, { centro: urano, raio: 18, velocidade: astroVel * 0.18 }, 1, moonTrace);
+            const umbriel = criarAstro(this, 0, 0, 2, 0x808080, { centro: urano, raio: 20, velocidade: astroVel * 0.16 }, 1, moonTrace);
+            const titânia = criarAstro(this, 0, 0, 2, 0x999999, { centro: urano, raio: 20, velocidade: astroVel * 0.12 }, 1, moonTrace);
+            const oberon = criarAstro(this, 0, 0, 2, 0xa9a9a9, { centro: urano, raio: 30, velocidade: astroVel * 0.11 }, 1, moonTrace);
+        const netuno = criarAstro(this, 0, 0, 10, 0x00008b, { centro: sol, raio: 650, velocidade: astroVel * 0.18 }, 20);
+            const tritão = criarAstro(this, 0, 0, 2, 0xb0e0e6, { centro: netuno, raio: 20, velocidade: astroVel * 0.15 }, 1, moonTrace);
+            const nereida = criarAstro(this, 0, 0, 2, 0xe0e0e0, { centro: netuno, raio: 30, velocidade: astroVel * 0.4 }, 1, moonTrace);
+
+        //hud
+        const hudCamera = this.cameras.add(0, 0, this.scale.width, this.scale.height, false, 'hudCamera');
+        hudCamera.setScroll(0, 0); // Fixa ela na tela
+        hudCamera.ignore(this.children.list);
+
+        const right = this.scale.width;
+        const bottom = this.scale.height;
         
-        ctx.globalCompositeOperation = "lighter";
         
-        for (var i = 0, x = stars.length; i < x; i++) {
-            var s = stars[i];
+        const buttonZoom = this.add.image(right - 150, bottom - 45, 'buttonZoomText').setInteractive().setScrollFactor(0);
+        this.cameras.main.ignore(buttonZoom);
+        buttonZoom.on('pointerdown', () => {
+            this.cameras.main.zoomTo(1, 2000);
+        });
+        const buttonFullScreen = this.add.image(right - 80, bottom - 45, 'fullScreen').setInteractive().setScrollFactor(0);
+        this.cameras.main.ignore(buttonFullScreen);
         
-            ctx.fillStyle = "#fff";
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
-            ctx.fill();
-        }
-        }
+    }
 
-        // Update star locations
+    function update() {
+        //CAMERA
+        if (this.isDragging) {
+            const pointer = this.input.activePointer;
+            const dx = this.dragStart.x - pointer.x;
+            const dy = this.dragStart.y - pointer.y;
+            this.cameras.main.scrollX += dx / this.cameras.main.zoom;
+            this.cameras.main.scrollY += dy / this.cameras.main.zoom;
+            this.dragStart.x = pointer.x;
+            this.dragStart.y = pointer.y;
+            }
 
-        function update() {
-        for (var i = 0, x = stars.length; i < x; i++) {
-            var s = stars[i];
-        
-            s.x += s.vx / FPS;
-            s.y += s.vy / FPS;
-            
-            if (s.x < 0 || s.x > canvas.width) s.x = -s.x;
-            if (s.y < 0 || s.y > canvas.height) s.y = -s.y;
-        }
-        }
-
-        // Update and draw
-
-        function tick() {
-        draw();
-        update();
-        requestAnimationFrame(tick);
-        }
-
-        tick();
-
-    </script>
+    }
+  </script>
 </body>
 </html>
